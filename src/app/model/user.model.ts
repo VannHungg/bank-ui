@@ -8,6 +8,7 @@ export class User {
     public statusCd: string;
     public statusMsg: string;
     public authStatus: string;
+    public customerId: number;
 
     constructor(
         id?: number,
@@ -19,6 +20,7 @@ export class User {
         statusCd?: string,
         statusMsg?: string,
         authStatus?: string,
+        customerId?: number
     ) {
         this.id = id || 0;
         this.name = name || '';
@@ -29,5 +31,6 @@ export class User {
         this.statusCd = statusCd || '';
         this.statusMsg = statusMsg || '';
         this.authStatus = authStatus || '';
+        this.customerId = customerId || 0;
     }
 }

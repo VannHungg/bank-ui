@@ -17,9 +17,10 @@ export class BalanceComponent implements OnInit {
         this.user = JSON.parse(sessionStorage.getItem('userdetails') || '');
         if (this.user) {
             this.dashboardService
-                .getAccountTransactions(this.user.id)
+                .getAccountTransactions(this.user.customerId)
                 .subscribe((responseData) => {
-                    this.transactions = <any>responseData.body;
+                    const body = responseData.body as any;
+                    this.transactions = body?.result;
                 });
         }
     }

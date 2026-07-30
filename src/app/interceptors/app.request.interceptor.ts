@@ -37,7 +37,7 @@ export class XhrInterceptor implements HttpInterceptor {
         if (jwtToken) {
             httpHeaders = httpHeaders.append('Authorization', jwtToken);
         }
-
+        
         httpHeaders = httpHeaders.append('X-Requested-With', 'XMLHttpRequest');
         const xhr = req.clone({
             headers: httpHeaders,

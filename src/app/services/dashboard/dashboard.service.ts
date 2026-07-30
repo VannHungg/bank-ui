@@ -17,9 +17,9 @@ export class DashboardService {
         );
     }
 
-    getAccountTransactions(id: number) {
+    getAccountTransactions(customerId: number) {
         return this.http.get(
-            environment.rooturl + AppConstants.BALANCE_API_URL + '?id=' + id,
+            environment.rooturl + AppConstants.BALANCE_API_URL + '?customerId=' + customerId,
             { observe: 'response', withCredentials: true },
         );
     }
