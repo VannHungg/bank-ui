@@ -17,16 +17,6 @@ export class XhrInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         let httpHeaders = new HttpHeaders();
-        if (sessionStorage.getItem('userdetails')) {
-            this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
-        }
-        if (this.user && this.user.password && this.user.email) {
-            httpHeaders = httpHeaders.append(
-                'Authorization',
-                'Basic ' +
-                    window.btoa(this.user.email + ':' + this.user.password),
-            );
-        }
 
         let token = sessionStorage.getItem('XSRF-TOKEN');
         if (token) {
@@ -35,7 +25,18 @@ export class XhrInterceptor implements HttpInterceptor {
 
         let jwtToken = sessionStorage.getItem('Authorization');
         if (jwtToken) {
-            httpHeaders = httpHeaders.append('Authorization', jwtToken);
+            httpHeaders = httpHeaders.set('Authorization', jwtToken);
+        } 
+        else {
+            if (sessionStorage.getItem('userdetails')) {
+                const user: User = JSON.parse(sessionStorage.getItem('userdetails')!);
+                if (user && user.email && user.password) {
+                    httpHeaders = httpHeaders.set(
+                        'Authorization',
+                        'Basic ' + window.btoa(user.email + ':' + user.password)
+                    );
+                }
+            }
         }
         
         httpHeaders = httpHeaders.append('X-Requested-With', 'XMLHttpRequest');
@@ -48,7 +49,7 @@ export class XhrInterceptor implements HttpInterceptor {
                     if (err.status !== 401) {
                         return;
                     }
-                    this.router.navigate(['dashboard']);
+                    this.router.navigate(['login']);
                 }
             }),
         );

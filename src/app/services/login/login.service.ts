@@ -17,4 +17,11 @@ export class LoginService {
             withCredentials: true,
         });
     }
+
+    getUserDetails() {
+        return this.http.get(environment.rooturl + '/user', {
+            observe: 'response',
+            withCredentials: true,
+        });
+    }
 }
