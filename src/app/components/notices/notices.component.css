@@ -1,4 +1,4 @@
-@import "../../../assets/css/font-awesome.css";
+/* vendor styles moved to global styles (angular.json -> styles) */
 
 .col-1,
 .col-2,
@@ -83,21 +83,25 @@
     margin-right: auto;
     margin-left: auto;
 }
+
 @media (min-width: 576px) {
     .container {
         max-width: 540px;
     }
 }
+
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
     }
 }
+
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
     }
 }
+
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;
@@ -293,9 +297,11 @@ h5 {
     position: relative;
     text-align: left;
 }
+
 .ftco-section.ftco-section-2 {
     padding: 6em 0;
 }
+
 .ftco-section .overlay {
     position: absolute;
     top: 0;
@@ -306,26 +312,22 @@ h5 {
     opacity: 0;
     background: red;
     background: -moz-linear-gradient(top, red 0%, red 44%, #1f0000 100%);
-    background: -webkit-gradient(
-        left top,
-        left bottom,
-        color-stop(0%, red),
-        color-stop(44%, red),
-        color-stop(100%, #1f0000)
-    );
+    background: -webkit-gradient(left top,
+            left bottom,
+            color-stop(0%, red),
+            color-stop(44%, red),
+            color-stop(100%, #1f0000));
     background: -webkit-linear-gradient(top, red 0%, red 44%, #1f0000 100%);
     background: -o-linear-gradient(top, red 0%, red 44%, #1f0000 100%);
     background: -ms-linear-gradient(top, red 0%, red 44%, #1f0000 100%);
-    background: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        from(red),
-        color-stop(44%, red),
-        to(#1f0000)
-    );
+    background: -webkit-gradient(linear,
+            left top,
+            left bottom,
+            from(red),
+            color-stop(44%, red),
+            to(#1f0000));
     background: linear-gradient(to bottom, red 0%, red 44%, #1f0000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#1f0000', GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#1f0000', GradientType=0);
 }
 
 .ftco-no-pb {
@@ -342,11 +344,13 @@ h5 {
     -moz-box-shadow: 0px 11px 30px -9px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 11px 30px -9px rgba(0, 0, 0, 0.05);
 }
+
 #cards .card .card-header {
     border: none;
     background: #343a40;
     color: #fff;
 }
+
 #cards .card .card-footer {
     border-top: 1px solid rgba(0, 0, 0, 0.04);
     background: #fff;
@@ -358,6 +362,7 @@ h5 {
     width: 100%;
     display: block;
 }
+
 #cards .card-img .img {
     width: 60px;
     height: 60px;
@@ -367,6 +372,7 @@ h5 {
     margin-left: 20px;
     border: 4px solid #fff;
 }
+
 #cards .card-img .img.img-2 {
     margin: 0 auto;
     width: 100px;
@@ -377,19 +383,24 @@ h5 {
 #cards .icon-wrap {
     position: relative;
 }
+
 #cards .icon-wrap .icon {
     width: 60px;
     height: 60px;
 }
+
 #cards .icon-wrap .icon span {
     font-size: 20px;
 }
+
 #cards .icon-wrap .icon.bg-info {
     border: 5px solid #92dcfe;
 }
+
 #cards .icon-wrap .icon.bg-success {
     border: 5px solid #baf2ce;
 }
+
 #cards .icon-wrap .icon.bg-warning {
     border: 5px solid #ffefd6;
 }
@@ -410,15 +421,18 @@ h5 {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
-.card > hr {
+
+.card>hr {
     margin-right: 0;
     margin-left: 0;
 }
-.card > .list-group:first-child .list-group-item:first-child {
+
+.card>.list-group:first-child .list-group-item:first-child {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
 }
-.card > .list-group:last-child .list-group-item:last-child {
+
+.card>.list-group:last-child .list-group-item:last-child {
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
 }
@@ -447,7 +461,7 @@ h5 {
     text-decoration: none;
 }
 
-.card-link + .card-link {
+.card-link+.card-link {
     margin-left: 1.25rem;
 }
 
@@ -457,10 +471,12 @@ h5 {
     background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+
 .card-header:first-child {
     border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
-.card-header + .list-group .list-group-item:first-child {
+
+.card-header+.list-group .list-group-item:first-child {
     border-top: 0;
 }
 
@@ -469,6 +485,7 @@ h5 {
     background-color: rgba(0, 0, 0, 0.03);
     border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
+
 .card-footer:last-child {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
 }

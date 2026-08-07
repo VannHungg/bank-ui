@@ -38,6 +38,7 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [AuthActivateRouteGuard],
+        data: {}
     },
     {
         path: 'logout',
@@ -47,11 +48,13 @@ const routes: Routes = [
         path: 'myAccount',
         component: AccountComponent,
         canActivate: [AuthActivateRouteGuard],
+        data: { roles: ['USER'] }
     },
     {
         path: 'myBalance',
         component: BalanceComponent,
         canActivate: [AuthActivateRouteGuard],
+        data: { roles: ['USER', 'ADMIN'] }
     },
     {
         path: 'myLoans',
@@ -62,6 +65,7 @@ const routes: Routes = [
         path: 'myCards',
         component: CardsComponent,
         canActivate: [AuthActivateRouteGuard],
+        data: { roles: ['USER'] }
     },
 ];
 
@@ -69,4 +73,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

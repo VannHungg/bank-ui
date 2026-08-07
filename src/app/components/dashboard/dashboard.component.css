@@ -1,4 +1,4 @@
-@import "../../../assets/css/font-awesome.css";
+/* vendor styles moved to global styles (angular.json -> styles) */
 
 .sticky-header .main-content {
     padding-top: 40px;
@@ -31,21 +31,22 @@
     border-radius: 0.25rem;
 }
 
-.breadcrumb-item + .breadcrumb-item {
+.breadcrumb-item+.breadcrumb-item {
     padding-left: 0.5rem;
 }
-.breadcrumb-item + .breadcrumb-item::before {
+
+.breadcrumb-item+.breadcrumb-item::before {
     display: inline-block;
     padding-right: 0.5rem;
     color: #6c757d;
     content: "/";
 }
 
-.breadcrumb-item + .breadcrumb-item:hover::before {
+.breadcrumb-item+.breadcrumb-item:hover::before {
     text-decoration: underline;
 }
 
-.breadcrumb-item + .breadcrumb-item:hover::before {
+.breadcrumb-item+.breadcrumb-item:hover::before {
     text-decoration: none;
 }
 
@@ -126,15 +127,18 @@
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
-.card > hr {
+
+.card>hr {
     margin-right: 0;
     margin-left: 0;
 }
-.card > .list-group:first-child .list-group-item:first-child {
+
+.card>.list-group:first-child .list-group-item:first-child {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
 }
-.card > .list-group:last-child .list-group-item:last-child {
+
+.card>.list-group:last-child .list-group-item:last-child {
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
 }
@@ -162,7 +166,7 @@
     text-decoration: none;
 }
 
-.card-link + .card-link {
+.card-link+.card-link {
     margin-left: 1.25rem;
 }
 
@@ -172,10 +176,12 @@
     background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+
 .card-header:first-child {
     border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
-.card-header + .list-group .list-group-item:first-child {
+
+.card-header+.list-group .list-group-item:first-child {
     border-top: 0;
 }
 
@@ -184,6 +190,7 @@
     background-color: rgba(0, 0, 0, 0.03);
     border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
+
 .card-footer:last-child {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
 }
