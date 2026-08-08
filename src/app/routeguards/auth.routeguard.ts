@@ -14,6 +14,7 @@ import { KeycloakProfile } from 'keycloak-js';
 export class AuthKeyClockGuard extends KeycloakAuthGuard {
     user = new User();
     public userProfile: KeycloakProfile | null = null;
+
     constructor(
         protected override readonly router: Router,
         protected readonly keycloak: KeycloakService
@@ -29,14 +30,19 @@ export class AuthKeyClockGuard extends KeycloakAuthGuard {
             await this.keycloak.login({
                 redirectUri: window.location.origin + state.url,
             });
-            return false;
         }
-
-        this.userProfile = await this.keycloak.loadUserProfile();
-        this.user.authStatus = 'AUTH';
-        this.user.name = this.userProfile.firstName || this.userProfile.username || "";
-        this.user.email = this.userProfile.email || "";
-        window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
+        else {
+            try {
+                this.userProfile = await this.keycloak.loadUserProfile();
+                this.user.authStatus = 'AUTH';
+                this.user.name = this.userProfile.firstName || this.userProfile.username || "";
+                this.user.email = this.userProfile.email || "";
+                window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
+            }
+            catch (error) {
+                console.error('Error occurred while checking access:', error);
+            }
+        }
 
         const requiredRoles = route.data["roles"];
         if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {

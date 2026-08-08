@@ -24,23 +24,39 @@ import { HomeComponent } from './components/home/home.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 function initializeKeycloak(keycloak: KeycloakService) {
-    return () =>
-        keycloak.init({
-            config: {
-                url: 'http://localhost:8181',
-                realm: 'bank-client',
-                clientId: 'bankpcke',
-            },
-            initOptions: {
-                responseMode: 'query',
-                flow: 'standard',
-                pkceMethod: 'S256',
-                checkLoginIframe: false,
-            },
-            enableBearerInterceptor: true,
-            bearerExcludedUrls: ['/assets'],
-            loadUserProfileAtStartUp: false
-        });
+    return async () => {
+        try {
+            const result = await keycloak.init({
+                config: {
+                    url: 'http://localhost:8181',
+                    realm: 'bank-client',
+                    clientId: 'bankpcke',
+                },
+                initOptions: {
+                    responseMode: 'query',
+                    flow: 'standard',
+                    pkceMethod: 'S256',
+                    checkLoginIframe: false,
+                },
+                enableBearerInterceptor: true,
+                bearerExcludedUrls: ['/assets'],
+                loadUserProfileAtStartUp: false
+            });
+
+            console.log('KEYCLOAK INIT RESULT:', result);
+            console.log('KEYCLOAK AUTHENTICATED:', keycloak.isLoggedIn());
+
+            return result;
+
+        } catch (error) {
+            console.error('🔥 KEYCLOAK INIT FAILED');
+            console.error('error:', error);
+            console.error('type:', typeof error);
+            console.error('stringified:', JSON.stringify(error));
+
+            throw error;
+        }
+    };
 }
 
 @NgModule({

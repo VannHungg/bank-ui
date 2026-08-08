@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/model/user.model';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginService } from 'src/app/services/login/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
+import { User } from 'src/app/model/user.model';
+import { LoginService } from 'src/app/services/login/login.service';
 import { getCookie } from 'typescript-cookie';
-import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     authStatus: string = '';
     model = new User();
 
@@ -19,35 +19,12 @@ export class LoginComponent implements OnInit {
         private loginService: LoginService,
         private router: Router,
         private route: ActivatedRoute,
+        private keycloak: KeycloakService
     ) {}
 
-    ngOnInit(): void {
-        this.route.queryParams.subscribe((params) => {
-            const token = params['token'];
-            if (token) {
-                window.sessionStorage.setItem('Authorization', token);
-                this.fetchUserDetailsAfterOAuth();
-            }
-        });
-    }
-
-    fetchUserDetailsAfterOAuth() {
-        this.loginService.getUserDetails().subscribe((responseData) => {
-            const body = responseData.body as any;
-            this.model = body?.result;
-            this.model.authStatus = 'AUTH';
-
-            window.sessionStorage.setItem(
-                'userdetails',
-                JSON.stringify(this.model),
-            );
-
-            let xsrfToken = getCookie('XSRF-TOKEN');
-            if (xsrfToken) {
-                window.sessionStorage.setItem('XSRF-TOKEN', xsrfToken);
-            }
-            
-            this.router.navigate(['dashboard'], { replaceUrl: true });
+    login(): void {
+        this.keycloak.login({
+            redirectUri: window.location.origin + '/dashboard'
         });
     }
 
@@ -72,9 +49,5 @@ export class LoginComponent implements OnInit {
 
                 this.router.navigate(['dashboard']);
             });
-    }
-
-    loginWithGithub(): void {
-        window.location.href = `${environment.rooturl}/oauth2/authorization/github`;
     }
 }
