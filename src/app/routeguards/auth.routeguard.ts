@@ -3,6 +3,7 @@ import {
     ActivatedRouteSnapshot,
     Router,
     RouterStateSnapshot,
+    UrlTree
 } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { User } from '../model/user.model';
@@ -25,22 +26,24 @@ export class AuthKeyClockGuard extends KeycloakAuthGuard {
     public async isAccessAllowed(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ) {
+    ): Promise<boolean | UrlTree> {
+
         if (!this.authenticated) {
             await this.keycloak.login({
                 redirectUri: window.location.origin + state.url,
             });
+            return false;
         }
-        else {
+
+        if (!window.sessionStorage.getItem("userdetails")) {
             try {
                 this.userProfile = await this.keycloak.loadUserProfile();
                 this.user.authStatus = 'AUTH';
                 this.user.name = this.userProfile.firstName || this.userProfile.username || "";
                 this.user.email = this.userProfile.email || "";
                 window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
-            }
-            catch (error) {
-                console.error('Error occurred while checking access:', error);
+            } catch (error) {
+                console.error('Error occurred while loading user profile:', error);
             }
         }
 

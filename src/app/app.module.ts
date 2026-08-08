@@ -29,7 +29,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
             const result = await keycloak.init({
                 config: {
                     url: 'http://localhost:8181',
-                    realm: 'bank-client',
+                    realm: 'bank-project',
                     clientId: 'bankpcke',
                 },
                 initOptions: {
