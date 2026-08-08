@@ -9,8 +9,8 @@ import { BalanceComponent } from '../app/components/balance/balance.component';
 import { NoticesComponent } from './components/notices/notices.component';
 import { LoansComponent } from './components/loans/loans.component';
 import { CardsComponent } from './components/cards/cards.component';
-import { AuthActivateRouteGuard } from './routeguards/auth.routeguard';
 import { HomeComponent } from './components/home/home.component';
+import { AuthKeyClockGuard } from './routeguards/auth.routeguard';
 
 const routes: Routes = [
     {
@@ -37,7 +37,7 @@ const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthActivateRouteGuard],
+        canActivate: [AuthKeyClockGuard],
         data: {}
     },
     {
@@ -47,24 +47,24 @@ const routes: Routes = [
     {
         path: 'myAccount',
         component: AccountComponent,
-        canActivate: [AuthActivateRouteGuard],
+        canActivate: [AuthKeyClockGuard],
         data: { roles: ['USER'] }
     },
     {
         path: 'myBalance',
         component: BalanceComponent,
-        canActivate: [AuthActivateRouteGuard],
+        canActivate: [AuthKeyClockGuard],
         data: { roles: ['USER', 'ADMIN'] }
     },
     {
         path: 'myLoans',
         component: LoansComponent,
-        canActivate: [AuthActivateRouteGuard],
+        canActivate: [AuthKeyClockGuard],
     },
     {
         path: 'myCards',
         component: CardsComponent,
-        canActivate: [AuthActivateRouteGuard],
+        canActivate: [AuthKeyClockGuard],
         data: { roles: ['USER'] }
     },
 ];

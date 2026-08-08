@@ -1,32 +1,48 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     ActivatedRouteSnapshot,
-    CanActivateFn,
-    RouterStateSnapshot,
     Router,
+    RouterStateSnapshot,
 } from '@angular/router';
+import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { User } from '../model/user.model';
+import { KeycloakProfile } from 'keycloak-js';
 
-@Injectable()
-export class AuthActivateRouteGuard {
+@Injectable({
+    providedIn: 'root',
+})
+export class AuthKeyClockGuard extends KeycloakAuthGuard {
     user = new User();
+    public userProfile: KeycloakProfile | null = null;
+    constructor(
+        protected override readonly router: Router,
+        protected readonly keycloak: KeycloakService
+    ) {
+        super(router, keycloak);
+    }
 
-    constructor(private router: Router) {}
+    public async isAccessAllowed(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ) {
+        if (!this.authenticated) {
+            await this.keycloak.login({
+                redirectUri: window.location.origin + state.url,
+            });
+            return false;
+        }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (sessionStorage.getItem('userdetails')) {
-            this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
+        this.userProfile = await this.keycloak.loadUserProfile();
+        this.user.authStatus = 'AUTH';
+        this.user.name = this.userProfile.firstName || this.userProfile.username || "";
+        this.user.email = this.userProfile.email || "";
+        window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
+
+        const requiredRoles = route.data["roles"];
+        if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
+            return true;
         }
-        if (this.user.email.length === 0) {
-            this.router.navigate(['login']);
-        }
-        return this.user.email.length !== 0 ? true : false;
+
+        return requiredRoles.some((role) => this.roles.includes(role));
     }
 }
-
-export const AuthGuard: CanActivateFn = (
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-): boolean => {
-    return inject(AuthActivateRouteGuard).canActivate(next, state);
-};

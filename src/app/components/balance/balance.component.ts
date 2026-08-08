@@ -17,7 +17,7 @@ export class BalanceComponent implements OnInit {
         this.user = JSON.parse(sessionStorage.getItem('userdetails') || '');
         if (this.user) {
             this.dashboardService
-                .getAccountTransactions(this.user.customerId)
+                .getAccountTransactions(this.user.email)
                 .subscribe((responseData) => {
                     const body = responseData.body as any;
                     this.transactions = body?.result;

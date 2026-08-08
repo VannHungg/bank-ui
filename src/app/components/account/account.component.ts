@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
         this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
         if (this.user) {
             this.dashboardService
-                .getAccountDetails(this.user.id)
+                .getAccountDetails(this.user.email)
                 .subscribe((responseData) => {
                     this.account = <any>responseData.body;
                 });

@@ -19,7 +19,7 @@ import { AccountComponent } from './components/account/account.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { LoansComponent } from './components/loans/loans.component';
 import { CardsComponent } from './components/cards/cards.component';
-import { AuthActivateRouteGuard } from './routeguards/auth.routeguard';
+import { AuthKeyClockGuard } from './routeguards/auth.routeguard';
 import { HomeComponent } from './components/home/home.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
@@ -27,15 +27,19 @@ function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
             config: {
-                url: 'http://localhost:8181/',
+                url: 'http://localhost:8181',
                 realm: 'bank-client',
                 clientId: 'bankpcke',
             },
             initOptions: {
+                responseMode: 'query',
+                flow: 'standard',
                 pkceMethod: 'S256',
-                redirectUri: 'http://localhost:4200/dashboard',
                 checkLoginIframe: false,
-            }, loadUserProfileAtStartUp: false
+            },
+            enableBearerInterceptor: true,
+            bearerExcludedUrls: ['/assets'],
+            loadUserProfileAtStartUp: false
         });
 }
 
@@ -72,7 +76,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
             multi: true,
             deps: [KeycloakService],
         },
-        AuthActivateRouteGuard
+        AuthKeyClockGuard
     ],
     bootstrap: [AppComponent],
 })

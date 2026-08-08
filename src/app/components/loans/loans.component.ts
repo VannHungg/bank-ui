@@ -19,7 +19,7 @@ export class LoansComponent implements OnInit {
         this.user = JSON.parse(sessionStorage.getItem('userdetails') || '');
         if (this.user) {
             this.dashboardService
-                .getLoansDetails(this.user.id)
+                .getLoansDetails(this.user.email)
                 .subscribe((responseData) => {
                     this.loans = <any>responseData.body;
                     this.loans.forEach(

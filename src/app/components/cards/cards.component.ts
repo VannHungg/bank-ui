@@ -19,7 +19,7 @@ export class CardsComponent implements OnInit {
         this.user = JSON.parse(sessionStorage.getItem('userdetails') || '');
         if (this.user) {
             this.dashboardService
-                .getCardsDetails(this.user.id)
+                .getCardsDetails(this.user.email)
                 .subscribe((responseData) => {
                     this.cards = <any>responseData.body;
                     this.cards.forEach(
