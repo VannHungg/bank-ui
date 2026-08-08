@@ -40,7 +40,7 @@ export class AuthKeyClockGuard extends KeycloakAuthGuard {
                 this.userProfile = await this.keycloak.loadUserProfile();
                 this.user.authStatus = 'AUTH';
                 this.user.name = this.userProfile.firstName || "";
-                this.user.email = this.userProfile.username || "";
+                this.user.email = this.userProfile.email || "";
                 window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
             } catch (error) {
                 console.error('Error occurred while loading user profile:', error);

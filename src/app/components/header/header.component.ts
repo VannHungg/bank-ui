@@ -22,8 +22,7 @@ export class HeaderComponent implements OnInit {
         if (this.isLoggedIn) {
             this.userProfile = await this.keycloak.loadUserProfile();
             this.user.authStatus = 'AUTH';
-            this.user.name = this.userProfile.firstName || "";
-            window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
+            this.user.name = this.userProfile.firstName || '';
         }
     }
 

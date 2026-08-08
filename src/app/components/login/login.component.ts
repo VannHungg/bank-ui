@@ -37,10 +37,6 @@ export class LoginComponent {
                 this.model.authStatus = 'AUTH';
                 let token = getCookie('XSRF-TOKEN');
 
-                window.sessionStorage.setItem(
-                    'userdetails',
-                    JSON.stringify(this.model),
-                );
                 window.sessionStorage.setItem('XSRF-TOKEN', token!);
                 window.sessionStorage.setItem(
                     'Authorization',
