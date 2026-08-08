@@ -32,6 +32,16 @@ export class HeaderComponent implements OnInit {
     }
 
     public logout() {
+        if (window.sessionStorage.getItem('userdetails')) {
+            window.sessionStorage.removeItem('userdetails');
+        }
+        if (window.sessionStorage.getItem('XSRF-TOKEN')) {
+            window.sessionStorage.removeItem('XSRF-TOKEN');
+        }
+        if (window.sessionStorage.getItem('Authorization')) {
+            window.sessionStorage.removeItem('Authorization');
+        }
+
         let redirectURI: string = "http://localhost:4200/home";
         this.keycloak.logout(redirectURI);
     }
